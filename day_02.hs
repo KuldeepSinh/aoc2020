@@ -11,11 +11,11 @@ readPositions = map read .words. removeDash
 
 --puzzle 3
 validateOccurances :: Num p => [[Char]] -> p
-validateOccurances [range, cs, str]
+validateOccurances [range, cs, password]
     | min <= occ && occ <= max = 1
     | otherwise = 0
     where
-        occ = occurances (head cs) str
+        occ = occurances (head cs) password
         [min, max] = readPositions range
 
 --puzzle 4
