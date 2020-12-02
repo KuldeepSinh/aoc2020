@@ -20,9 +20,9 @@ validateOccurances [range, cs, password]
 
 --puzzle 4
 validatePositions :: Num p => [[Char]] -> p
-validatePositions [range, cs, str]
-    | str !! (min -1) == c && str !! (max - 1) == c = 0
-    | str !! (min -1) == c || str !! (max - 1) == c = 1
+validatePositions [range, cs, password]
+    | password !! (min -1) == c && password !! (max - 1) == c = 0
+    | password !! (min -1) == c || password !! (max - 1) == c = 1
     | otherwise = 0
     where
         c = head cs 
