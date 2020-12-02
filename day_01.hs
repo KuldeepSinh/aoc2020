@@ -16,7 +16,9 @@ solveTriples = show . (\(a, b, c) -> a * b * c) . head . filter (\(a, b, c) -> a
 
 -- main
 -- compile as follows "ghc --make day_01.hs"
--- copy input file with name = "day_01.input"
 -- run as follows "cat day_01.input | ./day_01"
 main :: IO ()
-main = interact $ solveTriples
+-- puzzle 1
+main = interact $ solvePairs
+-- puzzle 2
+-- main = interact $ solveTriples
