@@ -4,13 +4,7 @@ terrain = map cycle . lines
 travelPath :: [a] -> String -> [(a, String)]
 travelPath rightMoves = zip rightMoves . terrain
 
-removeAlternateItem :: [a] -> [a]
-removeAlternateItem [] = []
-removeAlternateItem [x] = [x]
-removeAlternateItem (x1: _ : xs) = x1 : removeAlternateItem xs
 
-travelPath' :: [a] -> String -> [(a, String)]
-travelPath' rightMoves = zip rightMoves . removeAlternateItem . terrain
  
 filterTreesOnPath :: [(Int, [Char])] -> [(Int, [Char])]
 filterTreesOnPath = filter (\x -> snd x !! fst x == '#')
@@ -21,20 +15,31 @@ numberOfTreesOnPath = length . filterTreesOnPath
 puz1_solve :: String -> Int
 puz1_solve = numberOfTreesOnPath . travelPath [0,3..]
 
+-- for second puzzle
+removeAlternateItem :: [a] -> [a]
+removeAlternateItem [] = []
+removeAlternateItem [x] = [x]
+removeAlternateItem (x1: _ : xs) = x1 : removeAlternateItem xs
+
+travelPath' :: [a] -> String -> [(a, String)]
+travelPath' rightMoves = zip rightMoves . removeAlternateItem . terrain
+
 main :: IO ()
 -- puzzle 1
--- main = interact $ (++ "\n") . show . puz1_solve
+main = interact $ (++ "\n") . show . puz1_solve
+
+
 -- puzzle 2
-main = 
-    let
-        trees_on_path1 = numberOfTreesOnPath . travelPath [0,1..]
-        trees_on_path2 = numberOfTreesOnPath . travelPath [0,3..]
-        trees_on_path3 = numberOfTreesOnPath . travelPath [0,5..]
-        trees_on_path4 = numberOfTreesOnPath . travelPath [0,7..]
-        trees_on_path5 = numberOfTreesOnPath . travelPath' [0,1..]
-        mult input = product $ [trees_on_path1, trees_on_path2, trees_on_path3, trees_on_path4, trees_on_path5] <*> [input]
-    in 
-        interact $ (++ "\n") . show . mult 
+-- main = 
+--     let
+--         trees_on_path1 = numberOfTreesOnPath . travelPath [0,1..]
+--         trees_on_path2 = numberOfTreesOnPath . travelPath [0,3..]
+--         trees_on_path3 = numberOfTreesOnPath . travelPath [0,5..]
+--         trees_on_path4 = numberOfTreesOnPath . travelPath [0,7..]
+--         trees_on_path5 = numberOfTreesOnPath . travelPath' [0,1..]
+--         mult input = product $ [trees_on_path1, trees_on_path2, trees_on_path3, trees_on_path4, trees_on_path5] <*> [input]
+--     in 
+--         interact $ (++ "\n") . show . mult 
 
 {-
 --- Day 3: Toboggan Trajectory ---
