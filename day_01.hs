@@ -1,3 +1,31 @@
+import Data.List (tails)
+
+-- Puzzle - 01
+pairs :: [b] -> [(b, b)]
+pairs ls = [(x, y) | (x : ys) <- tails ls, y <- ys]
+
+solvePairs :: String -> String
+solvePairs = (++ "\n") . show . (\(a, b) -> a * b) . head . filter (\(a, b) -> a + b == 2020) . pairs . map read . words
+
+-- Puzzle - 02
+triples :: [c] -> [(c, c, c)]
+triples ls = [(x, y, z) | (x : ys) <- tails ls, (y : zs) <- tails ys, z <- zs]
+
+solveTriples :: String -> String
+solveTriples = (++ "\n") . show . (\(a, b, c) -> a * b * c) . head . filter (\(a, b, c) -> a + b + c == 2020) . triples . map read . words
+
+-- main
+-- compile as follows "ghc --make day_01.hs"
+-- run as follows "cat input/day_01.input | ./day_01"
+main :: IO ()
+-- puzzle 1
+main = interact $ solvePairs
+
+
+-- puzzle 2
+-- main = interact $ solveTriples
+
+
 {-
 --- Day 1: Report Repair ---
 After saving Christmas five years in a row, you've decided to take a vacation at a nice resort on a tropical island. 
@@ -44,27 +72,3 @@ Multiplying them together produces the answer, 241861950.
 In your expense report, what is the product of the three entries that sum to 2020?
 -}
 
-import Data.List (tails)
-
--- Puzzle - 01
-pairs :: [b] -> [(b, b)]
-pairs ls = [(x, y) | (x : ys) <- tails ls, y <- ys]
-
-solvePairs :: String -> String
-solvePairs = (++ "\n") . show . (\(a, b) -> a * b) . head . filter (\(a, b) -> a + b == 2020) . pairs . map read . words
-
--- Puzzle - 02
-triples :: [c] -> [(c, c, c)]
-triples ls = [(x, y, z) | (x : ys) <- tails ls, (y : zs) <- tails ys, z <- zs]
-
-solveTriples :: String -> String
-solveTriples = (++ "\n") . show . (\(a, b, c) -> a * b * c) . head . filter (\(a, b, c) -> a + b + c == 2020) . triples . map read . words
-
--- main
--- compile as follows "ghc --make day_01.hs"
--- run as follows "cat input/day_01.input | ./day_01"
-main :: IO ()
--- puzzle 1
-main = interact $ solvePairs
--- puzzle 2
--- main = interact $ solveTriples
