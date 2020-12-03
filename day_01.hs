@@ -62,7 +62,7 @@ solveTriples = (++ "\n") . show . (\(a, b, c) -> a * b * c) . head . filter (\(a
 
 -- main
 -- compile as follows "ghc --make day_01.hs"
--- run as follows "cat day_01.input | ./day_01"
+-- run as follows "cat input/day_01.input | ./day_01"
 main :: IO ()
 -- puzzle 1
 main = interact $ solvePairs

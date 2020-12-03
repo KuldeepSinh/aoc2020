@@ -76,7 +76,7 @@ validatePositions [range, cs, password]
     [min, max] = readPositions range
 
 -- compile as follows "ghc --make day_02.hs"
--- run as follows "cat day_02.input | ./day_02"
+-- run as follows "cat input/day_02.input | ./day_02"
 main :: IO ()
 -- puzzle 3
 main = interact $ (++ "\n") . show . sum . map (validateOccurances . words) . lines

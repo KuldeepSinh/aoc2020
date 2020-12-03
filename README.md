@@ -9,5 +9,5 @@ day_nn.input
 ghc --make day_nn.hs
 
 # Run as follows 
-cat day_nn.input | ./day_nn
+cat input/day_nn.input | ./day_nn
 ```
