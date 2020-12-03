@@ -19,13 +19,13 @@ main = interact $ (++ "\n") . show . puz1_solve
 
 
 -- for second puzzle
-removeAlternateItem :: [a] -> [a]
-removeAlternateItem [] = []
-removeAlternateItem [x] = [x]
-removeAlternateItem (x1: _ : xs) = x1 : removeAlternateItem xs
+removeAlternateItems :: [a] -> [a]
+removeAlternateItems [] = []
+removeAlternateItems [x] = [x]
+removeAlternateItems (x1: _ : xs) = x1 : removeAlternateItems xs
 
 travelPath' :: [a] -> String -> [(a, String)]
-travelPath' rightMoves = zip rightMoves . removeAlternateItem . terrain
+travelPath' rightMoves = zip rightMoves . removeAlternateItems . terrain
 
 -- main :: IO ()
 -- puzzle 2
