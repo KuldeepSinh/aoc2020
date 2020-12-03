@@ -1,5 +1,5 @@
 # aoc2020
-Advent of Code 2020
+## Advent of Code 2020
 
 ```Bash
 # Copy input file with name = 
