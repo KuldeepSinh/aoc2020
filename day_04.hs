@@ -24,10 +24,6 @@ main :: IO ()
 main = interact $ (++ "\n") . show . length . filterForPuzzle puzzel1Validators
 
 -- puzzle 2
-
-between :: Ord a => a -> a -> a -> Bool
-between a b v = a <= v && v <= b
-
 validator :: (Eq t, Ord k) => (t -> Bool) -> k -> M.Map k t -> Bool
 validator predicate key fromLst
   | val == Nothing = False
@@ -36,26 +32,29 @@ validator predicate key fromLst
     val = M.lookup key fromLst
     Just something = val
 
+between :: Ord a => a -> a -> a -> Bool
+between a b v = a <= v && v <= b
+
 validateByr :: M.Map [Char] [Char] -> Bool
-validateByr = validator (\something -> length something == 4 && between "1920" "2002" something) "byr"
+validateByr = validator (\x -> length x == 4 && between "1920" "2002" x) "byr"
 
 validateIyr :: M.Map [Char] [Char] -> Bool
-validateIyr = validator (\something -> length something == 4 && between "2010" "2020" something) "iyr"
+validateIyr = validator (\x -> length x == 4 && between "2010" "2020" x) "iyr"
 
 validateEyr :: M.Map [Char] [Char] -> Bool
-validateEyr = validator (\something -> length something == 4 && between "2020" "2030" something) "eyr"
+validateEyr = validator (\x -> length x == 4 && between "2020" "2030" x) "eyr"
 
 validateHgt :: M.Map [Char] [Char] -> Bool
-validateHgt = validator (\something -> (isSuffixOf "cm" something && between "150cm" "193cm" something) || (isSuffixOf "in" something && between "59in" "76in" something)) "hgt"
+validateHgt = validator (\x -> (isSuffixOf "cm" x && between "150cm" "193cm" x) || (isSuffixOf "in" x && between "59in" "76in" x)) "hgt"
 
 validateEcl :: M.Map [Char] [Char] -> Bool
-validateEcl = validator (\something -> elem something ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]) "ecl"
+validateEcl = validator (\x -> elem x ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]) "ecl"
 
 validateHcl :: M.Map [Char] [Char] -> Bool
-validateHcl = validator (\something -> length something == 7 && head something == '#' && (and $ elem <$> tail something <*> ["0123456789abcdef"])) "hcl"
+validateHcl = validator (\x -> length x == 7 && head x == '#' && (and $ elem <$> tail x <*> ["0123456789abcdef"])) "hcl"
 
 validatePid :: M.Map [Char] [Char] -> Bool
-validatePid = validator (\something -> length something == 9 && (and $ elem <$> something <*> ["0123456789"])) "pid"
+validatePid = validator (\x -> length x == 9 && (and $ elem <$> x <*> ["0123456789"])) "pid"
 
 puzzel2Validators :: [M.Map [Char] [Char] -> Bool]
 puzzel2Validators = [validateByr, validateEcl, validateEyr, validateHcl, validateHgt, validateIyr, validatePid]
