@@ -1,18 +1,18 @@
 import Data.Char (digitToInt)
 import Data.List (sort)
 
-convertToBin :: [Char] -> [Char]
-convertToBin [] = []
-convertToBin (x : xs)
-  | x == 'F' || x == 'L' = '0' : convertToBin xs
-  | x == 'B' || x == 'R' = '1' : convertToBin xs
+stringToBin :: [Char] -> [Char]
+stringToBin [] = []
+stringToBin (x : xs)
+  | x == 'F' || x == 'L' = '0' : stringToBin xs
+  | x == 'B' || x == 'R' = '1' : stringToBin xs
 
-toDecimal :: [Char] -> Int
-toDecimal [] = 0
-toDecimal ls@(x : xs) = ((digitToInt x) * (2 ^ (length ls - 1))) + toDecimal xs
+binToDecimal :: [Char] -> Int
+binToDecimal [] = 0
+binToDecimal ls@(x : xs) = ((digitToInt x) * (2 ^ (length ls - 1))) + binToDecimal xs
 
 seatID :: [Char] -> Int
-seatID xs = (toDecimal . convertToBin $ take 7 xs) * 8 + (toDecimal . convertToBin $ drop 7 xs)
+seatID xs = (binToDecimal . stringToBin $ take 7 xs) * 8 + (binToDecimal . stringToBin $ drop 7 xs)
 
 -- puzzle 1
 -- main :: IO ()
