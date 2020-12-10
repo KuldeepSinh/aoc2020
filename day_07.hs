@@ -29,5 +29,31 @@ containingBags (x:xs) ls = nub $ filteredBags ++ containingBags xs ls ++ contain
     where 
         filteredBags = map fst $ filterGivenBags x ls
 
+getBag :: String -> [(String, [(Int, String)])] -> [(String, [(Int, String)])]
+getBag _ [] = []
+getBag [] _ = []
+getBag  bag ls = filter (\x -> fst x == bag) ls         
+
+
+
+
+getAllBags :: String -> [(String, [(Int, String)])] -> [(String, [(Int, String)])]
+getAllBags _ []  = []
+getAllBags [] _ = []
+getAllBags  bag ls =  xs ++ cs 
+    where 
+        xs = getBag  bag ls
+        ys = map snd $ snd (head xs) 
+        bs [] = []
+        bs (z:zs) = getAllBags z ls ++ bs zs
+        cs = bs ys
+
+
+-- puzzle 1
+-- main :: IO ()
+-- main = interact $ (++ "\n") . show  . length. containingBags ["shiny gold"] . tuplify . map (filterBags . words) . lines
+
+-- puzzle 2
+-- <ToDo> have not resolved yet
 main :: IO ()
-main = interact $ (++ "\n") . show  . length. containingBags ["shiny gold"] . tuplify . map (filterBags . words) . lines
+main = interact $ (++ "\n") . show . getAllBags "shiny gold" .tuplify . map (filterBags . words) . lines
